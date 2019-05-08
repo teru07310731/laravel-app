@@ -14,13 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::group(['middleware' => ['web']], function() {
-
 	Route::get('/', function(){
 	    $books = Book::all();
 		return view('layouts.books', [
@@ -48,6 +47,11 @@ Route::group(['middleware' => ['web']], function() {
 	});
 
 	Route::delete('/book/{book}', function(Book $book) {
-
+		$book->delete();
+		
+		return redirect('/');
 	});
+
+	Route::auth();
+
 });
